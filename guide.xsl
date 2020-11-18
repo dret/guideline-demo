@@ -16,7 +16,6 @@ li:before { content: counters(item, ".") " "; counter-increment: item }
         </head>
         <body>
           <h1>Axway API Guideline Generator</h1>
-          <form>
             <ol>
               <xsl:for-each select="guide/guidelines/guideline">
                 <xsl:sort select="title/text()"/>
@@ -52,7 +51,6 @@ li:before { content: counters(item, ".") " "; counter-increment: item }
                 </div>
               </xsl:for-each>
             </ol>
-          </form>
           <script>
 var acc = document.getElementsByClassName("accordion");
 var i;
