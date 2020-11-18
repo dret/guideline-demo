@@ -35,7 +35,7 @@
                         <label class="cd-accordion__label cd-accordion__label--icon-folder"
                           for="sub-group-{$number}">
                           <span title="{teaser/text()}">
-                            <xsl:value-of select="concat($number, '. ', title/text())"/>
+                            <xsl:value-of select="concat($number, ' ', title/text())"/>
                           </span>
                         </label>
                         <div class="cd-accordion__sub cd-accordion__sub--l3">
