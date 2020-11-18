@@ -5,6 +5,11 @@
       <html>
         <head>
           <title>Axway API Guideline Generator</title>
+          <style>
+ol { counter-reset: item }
+li { display: block }
+li:before { content: counters(item, ".") " "; counter-increment: item }
+          </style>
         </head>
         <body>
           <h1>Axway API Guideline Generator</h1>
