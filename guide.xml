@@ -242,8 +242,22 @@
       <text>
         <p></p>
       </text>
+      <what id="query">
+        <title>Query Style</title>
+        <teaser>Remote Procedure Call (RPC)</teaser>
+        <text>
+          <p></p>
+        </text>
+        <how id="graphql">
+          <title>GraphQL</title>
+          <teaser>GraphQL</teaser>
+          <text>
+            <p></p>
+          </text>
+        </how>
+      </what>
       <what id="rpc">
-        <title>RPC</title>
+        <title>RPC Style</title>
         <teaser>Remote Procedure Call (RPC)</teaser>
         <text>
           <p></p>
