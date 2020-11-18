@@ -1,69 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
   <xsl:template match="/">
-    <xsl:result-document href="select.html" method="html">
+    <xsl:result-document href="docs/select.html" method="html">
       <html>
         <head>
           <title>Axway API Guideline Generator</title>
-          <style>
-ol { counter-reset: item }
-li { display: block }
-li:before { content: counters(item, ".") " "; counter-increment: item }
-.accordion { background-color: #eee; color: #444; cursor: pointer; padding: 18px; width: 100%; border: none; text-align: left; outline: none; font-size: 15px; transition: 0.4s; }
-.active, .accordion:hover { background-color: #ccc; }
-.panel { padding: 0 18px; background-color: white; max-height: 0; overflow: hidden; transition: max-height 0.2s ease-out; }
-          </style>
+          <script>document.getElementsByTagName("html")[0].className += " js";</script>
+          <link rel="stylesheet" href="assets/css/style.css"/>
         </head>
         <body>
-          <h1>Axway API Guideline Generator</h1>
-            <ol>
-              <xsl:for-each select="guide/guidelines/guideline">
-                <xsl:sort select="title/text()"/>
-                <button class="accordion" title="{teaser/text()}">
-                  <xsl:value-of select="title/text()"/>
-                </button>
-                <div class="panel">
-                  <p>
-                    <xsl:copy-of select="text"/>
-                  </p>
-                  <xsl:for-each select="what">
-                    <xsl:sort select="title/text()"/>
-                    <button class="accordion" title="{teaser/text()}">
-                      <xsl:value-of select="title/text()"/>
-                    </button>
-                    <div class="panel">
-                      <p>
-                        <xsl:copy-of select="text"/>
-                      </p>
-                      <xsl:for-each select="how">
-                        <xsl:sort select="title/text()"/>
-                        <button class="accordion" title="{teaser/text()}">
-                          <xsl:value-of select="title/text()"/>
-                        </button>
-                        <div class="panel">
-                          <p>
-                            <xsl:copy-of select="text"/>
-                          </p>
+          <ul class="cd-accordion cd-accordion--animated margin-top-lg margin-bottom-lg">
+            <xsl:for-each select="guide/guidelines/guideline">
+              <xsl:sort select="title/text()"/>
+              <xsl:variable name="number" select="position()"/>
+              <li class="cd-accordion__item cd-accordion__item--has-children">
+                <input class="cd-accordion__input" type="checkbox" name="group-{$number}"
+                  id="group-{$number}"/>
+                <label class="cd-accordion__label cd-accordion__label--icon-folder"
+                  for="group-{$number}">
+                  <span title="{teaser/text()}">
+                    <xsl:value-of select="concat($number, '. ', title/text())"/>
+                  </span>
+                </label>
+                <div class="cd-accordion__sub cd-accordion__sub--l1">
+                  <xsl:copy-of select="text/node()"/>
+                  <ul>
+                    <xsl:for-each select="what">
+                      <xsl:sort select="title/text()"/>
+                      <xsl:variable name="number" select="concat($number, '.', position())"/>
+                      <li class="cd-accordion__item cd-accordion__item--has-children">
+                        <input class="cd-accordion__input" type="checkbox"
+                          name="sub-group-{$number}" id="sub-group-{$number}"/>
+                        <label class="cd-accordion__label cd-accordion__label--icon-folder"
+                          for="sub-group-{$number}">
+                          <span title="{teaser/text()}">
+                            <xsl:value-of select="concat($number, '. ', title/text())"/>
+                          </span>
+                        </label>
+                        <div class="cd-accordion__sub cd-accordion__sub--l3">
+                          <xsl:copy-of select="text/node()"/>
+                          <ul>
+                            <xsl:for-each select="why">
+                              <xsl:sort select="title/text()"/>
+                              <li class="cd-accordion__item">
+                                <a href="#" class="subitem" title="{teaser/text()}">
+                                  <xsl:value-of select="title/text()"/>
+                                </a>
+                                <div>
+                                  <xsl:copy-of select="text/node()"/>
+                                </div>
+                              </li>
+                            </xsl:for-each>
+                          </ul>
                         </div>
-                      </xsl:for-each>
-                    </div>
-                  </xsl:for-each>
+                      </li>
+                    </xsl:for-each>
+                  </ul>
                 </div>
-              </xsl:for-each>
-            </ol>
-          <script>
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i &lt; acc.length; i++) {
-acc[i].addEventListener("click", function() {
-this.classList.toggle("active");
-var panel = this.nextElementSibling;
-if (panel.style.maxHeight) {
-panel.style.maxHeight = null;
-} else {
-panel.style.maxHeight = panel.scrollHeight + "px"; } }); }
-          </script>
+              </li>
+            </xsl:for-each>
+          </ul>
         </body>
       </html>
     </xsl:result-document>
