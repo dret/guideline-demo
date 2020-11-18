@@ -239,15 +239,21 @@
     <guideline id="api-style">
       <title>API Style</title>
       <teaser>APIs should be using the API style that best matches their service and consumers</teaser>
-      <text></text>
+      <text>
+        <p></p>
+      </text>
       <what id="rpc">
         <title>RPC</title>
         <teaser>Remote Procedure Call (RPC)</teaser>
-        <text></text>
+        <text>
+          <p></p>
+        </text>
         <how id="soap">
           <title>SOAP</title>
           <teaser>Simple Object Access Protocol (SOAP)</teaser>
-          <text></text>
+          <text>
+            <p></p>
+          </text>
         </how>
       </what>
     </guideline>
