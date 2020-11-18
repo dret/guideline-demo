@@ -9,41 +9,62 @@
 ol { counter-reset: item }
 li { display: block }
 li:before { content: counters(item, ".") " "; counter-increment: item }
+.accordion { background-color: #eee; color: #444; cursor: pointer; padding: 18px; width: 100%; border: none; text-align: left; outline: none; font-size: 15px; transition: 0.4s; }
+.active, .accordion:hover { background-color: #ccc; }
+.panel { padding: 0 18px; background-color: white; max-height: 0; overflow: hidden; transition: max-height 0.2s ease-out; }
           </style>
         </head>
         <body>
           <h1>Axway API Guideline Generator</h1>
-        </body>
-        <ol>
-          <xsl:for-each select="guide/guidelines/guideline">
-            <xsl:sort select="title/text()"/>
-            <li>
-              <span title="{teaser/text()}">
+          <ol>
+            <xsl:for-each select="guide/guidelines/guideline">
+              <xsl:sort select="title/text()"/>
+              <button class="accordion" title="{teaser/text()}">
                 <xsl:value-of select="title/text()"/>
-              </span>
-              <ol>
+              </button>
+              <div class="panel">
+                <p>
+                  <xsl:copy-of select="text"/>
+                </p>
                 <xsl:for-each select="what">
                   <xsl:sort select="title/text()"/>
-                  <li>
-                    <span title="{teaser/text()}">
-                      <xsl:value-of select="title/text()"/>
-                    </span>
-                    <ol>
-                      <xsl:for-each select="how">
-                        <xsl:sort select="title/text()"/>
-                        <li>
-                          <span title="{teaser/text()}">
-                            <xsl:value-of select="title/text()"/>
-                          </span>
-                        </li>
-                      </xsl:for-each>
-                    </ol>
-                  </li>
+                  <button class="accordion" title="{teaser/text()}">
+                    <xsl:value-of select="title/text()"/>
+                  </button>
+                  <div class="panel">
+                    <p>
+                      <xsl:copy-of select="text"/>
+                    </p>
+                    <xsl:for-each select="how">
+                      <xsl:sort select="title/text()"/>
+                      <button class="accordion" title="{teaser/text()}">
+                        <xsl:value-of select="title/text()"/>
+                      </button>
+                      <div class="panel">
+                        <p>
+                          <xsl:copy-of select="text"/>
+                        </p>
+                      </div>
+                    </xsl:for-each>
+                  </div>
                 </xsl:for-each>
-              </ol>
-            </li>
-          </xsl:for-each>
-        </ol>
+              </div>
+            </xsl:for-each>
+          </ol>
+          <script>
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+            
+            for (i = 0; i &lt; acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+            } else {
+            panel.style.maxHeight = panel.scrollHeight + "px"; } }); }
+          </script>
+        </body>
       </html>
     </xsl:result-document>
   </xsl:template>
