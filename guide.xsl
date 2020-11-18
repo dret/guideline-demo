@@ -16,6 +16,26 @@
               <span title="{teaser/text()}">
                 <xsl:value-of select="title/text()"/>
               </span>
+              <ol>
+                <xsl:for-each select="what">
+                  <xsl:sort select="title/text()"/>
+                  <li>
+                    <span title="{teaser/text()}">
+                      <xsl:value-of select="title/text()"/>
+                    </span>
+                    <ol>
+                      <xsl:for-each select="how">
+                        <xsl:sort select="title/text()"/>
+                        <li>
+                          <span title="{teaser/text()}">
+                            <xsl:value-of select="title/text()"/>
+                          </span>
+                        </li>
+                      </xsl:for-each>
+                    </ol>
+                  </li>
+                </xsl:for-each>
+              </ol>
             </li>
           </xsl:for-each>
         </ol>
